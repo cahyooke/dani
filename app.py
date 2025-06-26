@@ -35,17 +35,18 @@ except Exception as e:
 if submit:
     try:
         input_data = pd.DataFrame([{
-            'Age': age,
-            'Gender': 1 if gender == "Male" else 0,
-            'TB': tb,
-            'DB': db,
-            'Alkphos': alkphos,
-            'SGPT': sgpt,
-            'SGOT': sgot,
-            'TP': tp,
-            'ALB': alb,
-            'AG_Ratio': ag_ratio
-        }])
+        'Age': age,
+        'Gender': 1 if gender == "Male" else 0,
+        'TB': tb,
+        'DB': db,
+        'Alkphos': alkphos,
+        'SGPT': sgpt,
+        'SGOT': sgot,
+        'TP': tp,
+        'ALB': alb
+        # ❌ Hapus AG_Ratio
+    }])
+
 
         prediction = model.predict(input_data)[0]
 
