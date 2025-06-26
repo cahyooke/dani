@@ -2,7 +2,9 @@ import streamlit as st
 import pandas as pd
 import joblib
 
+# Konfigurasi halaman
 st.set_page_config(page_title="Prediksi Pasien Liver", layout="centered")
+
 st.title("🩺 Prediksi Status Pasien Liver")
 st.markdown("Silakan masukkan data pasien di bawah ini:")
 
@@ -25,11 +27,11 @@ with st.form("form_pasien"):
 try:
     model = joblib.load("model_ilpd_knn.pkl")
 except Exception as e:
-    st.error("❌ Gagal memuat model.")
+    st.error("❌ Gagal memuat model. Pastikan file 'model_ilpd_knn.pkl' tersedia dan sudah dilatih.")
     st.exception(e)
     st.stop()
 
-# Prediksi saat tombol ditekan
+# Prediksi
 if submit:
     try:
         input_data = pd.DataFrame([{
@@ -46,10 +48,12 @@ if submit:
         }])
 
         prediction = model.predict(input_data)[0]
+
         if prediction == 1:
             st.success("✅ Hasil: Pasien **terindikasi sehat**.")
         else:
             st.warning("⚠️ Hasil: Pasien **terindikasi memiliki penyakit liver**.")
+
     except Exception as e:
         st.error("❌ Gagal melakukan prediksi.")
         st.exception(e)
